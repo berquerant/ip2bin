@@ -1,0 +1,97 @@
+# TypeProf 0.21.8
+
+# Classes
+module Ip2bin
+  VERSION: String
+
+  class InvalidByteError
+  end
+
+  class Byte
+    attr_reader int: (Integer | false)?
+    def initialize: ((Integer | false)? int) -> void
+    def &: (untyped other) -> Byte
+    def to_bin: -> Bin
+    def to_s: -> String
+  end
+
+  class Bin
+    attr_reader int: (Integer | false)?
+    def initialize: ((Integer | false)? int) -> void
+    def to_s: -> String
+    def to_byte: -> Byte
+    def abbrev: -> untyped
+    def self.from_str: (untyped str) -> Bin
+  end
+
+  class Compress
+    def self.abbrev: (String str) -> String?
+    def self.deabbrev: (untyped str, Integer len) -> untyped
+  end
+
+  class Error < StandardError
+  end
+
+  class InvalidAddressError < Error
+  end
+
+  class Address
+    attr_reader bytes: Array[Byte]
+    def initialize: (*Byte bytes) -> void
+    def &: (untyped other) -> Address
+    def to: (?:str `type`) -> String?
+    def self.from: (untyped str, ?:str `type`) -> Address
+    def self.from_str: (untyped str) -> Address
+    def abbrev: -> String?
+    def self.deabbrev: (untyped str) -> Address
+    def to_bin: -> String
+    def to_s: -> String
+    def to_i: -> untyped
+    def self.from_int: (Integer? int) -> Address
+  end
+
+  class Yield
+    def self.lines: (?IO src, ?IO err) -> nil
+  end
+
+  class InvalidCidrError < Error
+  end
+
+  class Cidr
+    attr_reader address: Address
+    attr_reader mask: Mask
+    def initialize: (Address address, Mask mask) -> void
+    def to_s: -> String
+    def self.from_str: (untyped str) -> Cidr
+    def contain: (untyped address_or_cidr) -> bool
+    def host: -> Address
+    def network: -> Address
+    def expand: -> Range
+  end
+
+  class CidrGenerator
+    include Comparable
+
+    attr_reader value: Cidr
+    def initialize: (Cidr value) -> void
+    def self.children: (untyped cidr, untyped bit) -> Range
+    def <=>: (untyped other) -> untyped
+    def succ: -> CidrGenerator
+  end
+
+  class CidrRange
+    include Comparable
+
+    attr_reader value: Address
+    def initialize: (Address value) -> void
+    def <=>: (untyped other) -> untyped
+    def succ: -> CidrRange
+  end
+
+  class Mask
+    attr_reader bit: Integer?
+    attr_reader int: untyped
+    def initialize: (Integer? bit) -> void
+    def to_address: -> Address
+  end
+end
