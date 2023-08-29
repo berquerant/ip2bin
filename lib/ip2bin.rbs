@@ -8,25 +8,25 @@ module Ip2bin
   end
 
   class Byte
-    attr_reader int: (Integer | false)?
-    def initialize: ((Integer | false)? int) -> void
-    def &: (untyped other) -> Byte
+    attr_reader int: Integer
+    def initialize: Integer int -> void
+    def &: (Byte other) -> Byte
     def to_bin: -> Bin
     def to_s: -> String
   end
 
   class Bin
-    attr_reader int: (Integer | false)?
-    def initialize: ((Integer | false)? int) -> void
+    attr_reader int: Integer
+    def initialize: (Integer int) -> void
     def to_s: -> String
     def to_byte: -> Byte
-    def abbrev: -> untyped
-    def self.from_str: (untyped str) -> Bin
+    def abbrev: -> String
+    def self.from_str: (String str) -> Bin
   end
 
   class Compress
-    def self.abbrev: (String str) -> String?
-    def self.deabbrev: (untyped str, Integer len) -> untyped
+    def self.abbrev: (String str) -> String
+    def self.deabbrev: (String str, Integer len) -> String
   end
 
   class Error < StandardError
@@ -38,20 +38,20 @@ module Ip2bin
   class Address
     attr_reader bytes: Array[Byte]
     def initialize: (*Byte bytes) -> void
-    def &: (untyped other) -> Address
+    def &: ((Integer | Address) other) -> Address
     def to: (?:str `type`) -> String?
-    def self.from: (untyped str, ?:str `type`) -> Address
-    def self.from_str: (untyped str) -> Address
-    def abbrev: -> String?
-    def self.deabbrev: (untyped str) -> Address
+    def self.from: (String str, ?:str `type`) -> Address
+    def self.from_str: (String str) -> Address
+    def abbrev: -> String
+    def self.deabbrev: (String str) -> Address
     def to_bin: -> String
     def to_s: -> String
-    def to_i: -> untyped
-    def self.from_int: (Integer? int) -> Address
+    def to_i: -> Integer
+    def self.from_int: (Integer int) -> Address
   end
 
   class Yield
-    def self.lines: (?IO src, ?IO err) -> nil
+    def self.lines: (?IO src, ?IO err) { (String) -> untyped } -> void
   end
 
   class InvalidCidrError < Error
@@ -62,8 +62,8 @@ module Ip2bin
     attr_reader mask: Mask
     def initialize: (Address address, Mask mask) -> void
     def to_s: -> String
-    def self.from_str: (untyped str) -> Cidr
-    def contain: (untyped address_or_cidr) -> bool
+    def self.from_str: (String str) -> Cidr
+    def contain: ((Address | Cidr) address_or_cidr) -> bool
     def host: -> Address
     def network: -> Address
     def expand: -> Range
@@ -74,8 +74,8 @@ module Ip2bin
 
     attr_reader value: Cidr
     def initialize: (Cidr value) -> void
-    def self.children: (untyped cidr, untyped bit) -> Range
-    def <=>: (untyped other) -> untyped
+    def self.children: (Cidr cidr, Integer bit) -> Range
+    def <=>: (CidrGenerator other) -> Integer
     def succ: -> CidrGenerator
   end
 
@@ -84,14 +84,14 @@ module Ip2bin
 
     attr_reader value: Address
     def initialize: (Address value) -> void
-    def <=>: (untyped other) -> untyped
+    def <=>: (CidrRange other) -> Integer
     def succ: -> CidrRange
   end
 
   class Mask
-    attr_reader bit: Integer?
-    attr_reader int: untyped
-    def initialize: (Integer? bit) -> void
+    attr_reader bit: Integer
+    attr_reader int: Integer
+    def initialize: (Integer bit) -> void
     def to_address: -> Address
   end
 end
