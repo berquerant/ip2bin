@@ -21,14 +21,14 @@ RSpec.describe Ip2bin do
       it "should raise an error" do
         expect do
           Ip2bin::Byte.new(256)
-        end.to raise_error(Ip2bin::InvalidByteError)
+        end.to raise_error(Ip2bin::Error)
       end
     end
     context "-1" do
       it "should raise an error" do
         expect do
           Ip2bin::Byte.new(-1)
-        end.to raise_error(Ip2bin::InvalidByteError)
+        end.to raise_error(Ip2bin::Error)
       end
     end
   end

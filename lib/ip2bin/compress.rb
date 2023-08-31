@@ -12,12 +12,15 @@ module Ip2bin
           start_index = i
         end
       end
-      str[..start_index]
+      # @type var r: String
+      r = str[..start_index]
+      r
     end
 
     def self.deabbrev(str, len)
       return str if str.empty? or len <= str.length
 
+      # @type var last_char: String
       last_char = str[-1]
       str + last_char * (len - str.length)
     end

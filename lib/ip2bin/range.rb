@@ -15,6 +15,7 @@ module Ip2bin
     end
 
     def self.from_str(str)
+      # @type var address: String
       address, size = str.split("/")
       self.new(Address.from_str(address), Mask.new(Integer(size)))
     end
@@ -24,7 +25,9 @@ module Ip2bin
       when Address then
         Cidr.new(address_or_cidr, @mask).network.to_s == network.to_s
       when Cidr then
+        # @type var t: String
         t = address_or_cidr.network.to_bin[...address_or_cidr.mask.bit]
+        # @type var c: String
         c = network.to_bin[...mask.bit]
         t.start_with?(c)
       else

@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "thor", "~> 1.2"
+  spec.add_development_dependency "steep", "~> 1.5.3"
   spec.add_development_dependency "rbs", "~> 3.2.0"
   spec.add_development_dependency "typeprof", "~> 0.21.7"
   spec.add_development_dependency "bundler", "~> 2.4.18"

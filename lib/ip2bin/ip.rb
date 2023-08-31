@@ -10,7 +10,7 @@ module Ip2bin
     def initialize(*bytes)
       ary = Array.new(4, Byte.new(0))
       min_len = [ary.length, bytes.length].min
-      (0...min_len).each do |i|
+      (0...min_len).map{|i| Integer(i)}.each do |i|
         ary[i] = bytes[i]
       end
       @bytes = ary

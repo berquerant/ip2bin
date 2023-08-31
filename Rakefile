@@ -5,6 +5,18 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-task :generate do
-  sh %[bundle exec typeprof lib/**/*.rb > lib/ip2bin.rbs]
+namespace :gen do
+  task :typeprof do
+    sh %[bundle exec typeprof lib/**/*.rb > sig/ip2bin.rbs]
+  end
+end
+
+namespace :check do
+  task :steep do
+    sh %[bundle exec steep check]
+  end
+
+  task :rbs do
+    sh %[bundle exec rbs -I sig/ validate --silent]
+  end
 end
