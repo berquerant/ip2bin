@@ -17,6 +17,8 @@ jobs:
           bundler-cache: true
       - name: Install dependencies
         run: bundle install
+      - name: Fmt check
+        run: bundle exec rake check:rufo
       - name: Rbs check
         run: bundle exec rake check:rbs
       - name: Steep

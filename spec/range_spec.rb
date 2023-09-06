@@ -18,7 +18,7 @@ RSpec.describe Ip2bin do
         context "#{input}" do
           it "should have #{want.length} elements" do
             c = Ip2bin::Cidr.from_str(input)
-            got = c.expand.map{|x| x.value.to_s}
+            got = c.expand.map { |x| x.value.to_s }
             expect(got).to eq(want)
           end
         end

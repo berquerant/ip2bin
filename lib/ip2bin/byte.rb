@@ -2,6 +2,7 @@ module Ip2bin
   # An integer between 0 and 256.
   class Byte
     attr_reader :int
+
     def initialize(int)
       raise Error, "Invalid Byte value: #{int}" if int < 0 or int > 255
       @int = int
@@ -23,6 +24,7 @@ module Ip2bin
   # Other expression of `Byte`.
   class Bin
     attr_reader :int
+
     def initialize(int)
       @int = int
     end

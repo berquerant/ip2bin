@@ -19,4 +19,14 @@ namespace :check do
   task :rbs do
     sh %[bundle exec rbs -I sig/ validate --silent]
   end
+
+  task :rufo do
+    sh %[bundle exec rufo --check lib spec]
+  end
+end
+
+namespace :fmt do
+  task :rufo do
+    sh %[bundle exec rufo lib spec]
+  end
 end

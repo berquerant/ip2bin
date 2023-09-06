@@ -5,6 +5,7 @@ module Ip2bin
 
   class Cidr
     attr_reader :address, :mask
+
     def initialize(address, mask)
       @address = address
       @mask = mask
@@ -22,9 +23,9 @@ module Ip2bin
 
     def contain(address_or_cidr)
       case address_or_cidr
-      when Address then
+      when Address
         Cidr.new(address_or_cidr, @mask).network.to_s == network.to_s
-      when Cidr then
+      when Cidr
         # @type var t: String
         t = address_or_cidr.network.to_bin[...address_or_cidr.mask.bit]
         # @type var c: String
@@ -36,7 +37,7 @@ module Ip2bin
     end
 
     def host
-      @address & ~ @mask.int
+      @address & ~@mask.int
     end
 
     def network
@@ -53,6 +54,7 @@ module Ip2bin
   class CidrGenerator
     include Comparable
     attr_reader :value
+
     def initialize(value)
       @value = value
     end
@@ -78,6 +80,7 @@ module Ip2bin
   class CidrRange
     include Comparable
     attr_reader :value
+
     def initialize(value)
       @value = value
     end
@@ -93,9 +96,10 @@ module Ip2bin
 
   class Mask
     attr_reader :bit, :int
+
     def initialize(bit)
       @bit = bit
-      @int = (0...bit).map{|i| 1 << (31 - i)}.sum
+      @int = (0...bit).map { |i| 1 << (31 - i) }.sum
     end
 
     def to_address

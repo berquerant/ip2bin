@@ -7,10 +7,11 @@ module Ip2bin
   # IPv4 address.
   class Address
     attr_reader :bytes
+
     def initialize(*bytes)
       ary = Array.new(4, Byte.new(0))
       min_len = [ary.length, bytes.length].min
-      (0...min_len).map{|i| Integer(i)}.each do |i|
+      (0...min_len).map { |i| Integer(i) }.each do |i|
         ary[i] = bytes[i]
       end
       @bytes = ary
@@ -18,9 +19,9 @@ module Ip2bin
 
     def &(other)
       case other
-      when Integer then
+      when Integer
         Address.from_int(to_i & other)
-      when Address then
+      when Address
         Address.from_int(to_i & other.to_i)
       else
         raise InvalidAddressError, "Cannot perform Address & #{other.class} (#{other})"
@@ -32,15 +33,15 @@ module Ip2bin
     # - `:abbrev`: into compressed binary string via `Compress.abbrev`
     # - `:bin`: into binary string
     # - `:int`: into integer
-    def to(type=:str)
+    def to(type = :str)
       case type
-      when :str, :s then
+      when :str, :s
         to_s
-      when :abbrev, :a then
+      when :abbrev, :a
         abbrev
-      when :bin, :b then
+      when :bin, :b
         to_bin
-      when :int, :i then
+      when :int, :i
         to_i
       else
         raise InvalidAddressError, "unknown type #{type}"
@@ -51,13 +52,13 @@ module Ip2bin
     # - `:str`: from string
     # - `:int`: from integer
     # - `:bin`: from binary string
-    def self.from(str, type=:str)
+    def self.from(str, type = :str)
       case type
-      when :str, :s then
+      when :str, :s
         self.from_str(str)
-      when :int, :i then
+      when :int, :i
         self.from_int(Integer(str))
-      when :bin, :b then
+      when :bin, :b
         self.deabbrev(str)
       else
         raise InvalidAddressError, "unknown type #{type}"
@@ -65,13 +66,13 @@ module Ip2bin
     end
 
     def self.from_str(str)
-      self.new(*str.split(".").map{|x| Byte.new(Integer(x))})
+      self.new(*str.split(".").map { |x| Byte.new(Integer(x)) })
     rescue
       raise InvalidAddressError
     end
 
     def abbrev
-      Compress.abbrev(@bytes.map{|x| x.to_s}.join)
+      Compress.abbrev(@bytes.map { |x| x.to_s }.join)
     end
 
     def self.deabbrev(str)
@@ -79,15 +80,15 @@ module Ip2bin
     end
 
     def to_bin
-      @bytes.map{|x| x.to_s}.join
+      @bytes.map { |x| x.to_s }.join
     end
 
     def to_s
-      @bytes.map{|x| x.int}.join(".")
+      @bytes.map { |x| x.int }.join(".")
     end
 
     def to_i
-      @bytes.reverse.map.with_index{|x, i| x.int * (1 << (i * 8))}.sum
+      @bytes.reverse.map.with_index { |x, i| x.int * (1 << (i * 8)) }.sum
     end
 
     def self.from_int(int)

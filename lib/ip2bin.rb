@@ -14,11 +14,13 @@ module Ip2bin
         "m" => "mask"
 
     desc "mask BIT", "display mask"
+
     def mask(bit)
       puts Mask.new(Integer(bit)).to_address
     end
 
     desc "children CIDR BIT", "display cidr children"
+
     def children(cidr, bit)
       cidr = Cidr.from_str(cidr)
       bit = Integer(bit)
@@ -30,14 +32,15 @@ module Ip2bin
 
     option :all, :type => :boolean, :aliases => :a
     desc "expand", "expand cidr"
+
     def expand
       Yield.lines do |line|
         cidr = Cidr.from_str(line)
         r = cidr.expand
-        if options[:all] then
-        r.each do |v|
-          puts v.value
-        end
+        if options[:all]
+          r.each do |v|
+            puts v.value
+          end
         else
           puts r.begin.value
           puts r.end.value
@@ -46,6 +49,7 @@ module Ip2bin
     end
 
     desc "contain CIDR", "determine cidr contain addresses"
+
     def contain(cidr)
       cidr = Cidr.from_str(cidr)
 
@@ -68,15 +72,16 @@ module Ip2bin
     int, i: integer, e.g. 3232235780
     abbrev, a: abbreviated binary address, e.g. 00001010 (00001010000000000000000000000000)
     LONGDESC
-    def conv(to="bin")
+
+    def conv(to = "bin")
       from = options[:from].to_sym
       to = case to
-           when "bin", "b" then :bin
-           when "dec", "d", "str", "s" then :str
-           when "int", "i" then :int
-           when "abbrev", "a" then :abbrev
-           else :bin
-           end
+        when "bin", "b" then :bin
+        when "dec", "d", "str", "s" then :str
+        when "int", "i" then :int
+        when "abbrev", "a" then :abbrev
+        else :bin
+        end
 
       Yield.lines do |line|
         puts Address.from(line, from).to(to)
@@ -84,6 +89,7 @@ module Ip2bin
     end
 
     desc "version", "version"
+
     def version
       puts VERSION
     end
