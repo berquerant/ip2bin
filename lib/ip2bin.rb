@@ -67,10 +67,10 @@ module Ip2bin
 
     You can optionally specify a 1st parameter as the format to convert to, followings are valid values:
 
-    bin, b: binary, e.g. 11000000101010000000000100000100
-    dec, d, str, s: string, e.g. 192.168.1.4
-    int, i: integer, e.g. 3232235780
-    abbrev, a: abbreviated binary address, e.g. 00001010 (00001010000000000000000000000000)
+    - bin, b: binary, e.g. 11000000101010000000000100000100
+    \x5- dec, d, str, s: string, e.g. 192.168.1.4
+    \x5- int, i: integer, e.g. 3232235780
+    \x5- abbrev, a: abbreviated binary address, e.g. 00001010 (00001010000000000000000000000000)
     LONGDESC
 
     def conv(to = "bin")
