@@ -41,9 +41,11 @@ module Ip2bin
     def &: ((Integer | Address) other) -> Address
     def to: (?:str `type`) -> (String | Integer)
     def self.from: (String str, ?:str `type`) -> Address
+    def self.from_dbin: (String str) -> Address
     def self.from_str: (String str) -> Address
     def abbrev: -> String
     def self.deabbrev: (String str) -> Address
+    def to_dbin: -> String
     def to_bin: -> String
     def to_s: -> String
     def to_i: -> Integer

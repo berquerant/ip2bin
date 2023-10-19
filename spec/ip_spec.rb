@@ -60,5 +60,18 @@ RSpec.describe Ip2bin do
         end
       end
     end
+    context "dbin" do
+      [
+        ["0.0.0.0", "00000000.00000000.00000000.00000000"],
+        ["127.0.0.1", "01111111.00000000.00000000.00000001"],
+        ["10.128.0.0", "00001010.10000000.00000000.00000000"],
+      ].each do |input, want|
+        context "#{input}" do
+          it "should be #{want}" do
+            expect(Ip2bin::Address.from_str(input).to_dbin).to eq(want)
+          end
+        end
+      end
+    end
   end
 end

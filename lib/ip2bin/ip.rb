@@ -43,6 +43,8 @@ module Ip2bin
         to_bin
       when :int, :i
         to_i
+      when :dbin, :d
+        to_dbin
       else
         raise InvalidAddressError, "unknown type #{type}"
       end
@@ -52,6 +54,7 @@ module Ip2bin
     # - `:str`: from string
     # - `:int`: from integer
     # - `:bin`: from binary string
+    # - `:dbin` : from dotted binary string
     def self.from(str, type = :str)
       case type
       when :str, :s
@@ -60,9 +63,15 @@ module Ip2bin
         self.from_int(Integer(str))
       when :bin, :b
         self.deabbrev(str)
+      when :dbin, :d
+        self.from_dbin(str)
       else
         raise InvalidAddressError, "unknown type #{type}"
       end
+    end
+
+    def self.from_dbin(str)
+      self.deabbrev(str.delete("."))
     end
 
     def self.from_str(str)
@@ -77,6 +86,10 @@ module Ip2bin
 
     def self.deabbrev(str)
       self.from_int(Compress.deabbrev(str, 32).to_i(2))
+    end
+
+    def to_dbin
+      @bytes.map { |x| x.to_s }.join(".")
     end
 
     def to_bin

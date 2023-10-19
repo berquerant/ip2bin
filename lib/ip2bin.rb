@@ -71,6 +71,7 @@ module Ip2bin
     \x5- dec, d, str, s: string, e.g. 192.168.1.4
     \x5- int, i: integer, e.g. 3232235780
     \x5- abbrev, a: abbreviated binary address, e.g. 00001010 (00001010000000000000000000000000)
+    \x5- dbin, c: dotted binary, e.g. 01111111.00000000.00000000.00000001
     LONGDESC
 
     def conv(to = "bin")
@@ -80,6 +81,7 @@ module Ip2bin
         when "dec", "d", "str", "s" then :str
         when "int", "i" then :int
         when "abbrev", "a" then :abbrev
+        when "dbin", "c" then :dbin
         else :bin
         end
 
