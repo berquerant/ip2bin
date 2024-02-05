@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "typeprof", "~> 0.21.7"
   spec.add_development_dependency "bundler", "~> 2.4.18"
   spec.add_development_dependency "rake", "~> 13.1.0"
-  spec.add_development_dependency "rspec", "~> 3.12.0"
+  spec.add_development_dependency "rspec", "~> 3.13.0"
 end
