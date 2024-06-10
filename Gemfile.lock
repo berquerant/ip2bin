@@ -64,7 +64,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.0)
     ruby2_keywords (0.0.5)
-    rufo (0.17.1)
+    rufo (0.18.0)
     securerandom (0.3.0)
     steep (1.6.0)
       activesupport (>= 5.1)
@@ -102,7 +102,7 @@ DEPENDENCIES
   rake (~> 13.2.1)
   rbs (~> 3.4.1)
   rspec (~> 3.13.0)
-  rufo (~> 0.17.0)
+  rufo (~> 0.18.0)
   steep (~> 1.6.0)
   typeprof (~> 0.21.7)
 
