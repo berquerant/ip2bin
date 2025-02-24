@@ -66,7 +66,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.0)
-    rufo (0.18.0)
+    rufo (0.18.1)
     securerandom (0.4.1)
     steep (1.9.4)
       activesupport (>= 5.1)
