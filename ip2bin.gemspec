@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thor", "~> 1.2"
   spec.add_development_dependency "rufo", "~> 0.18.0"
   spec.add_development_dependency "steep", "~> 1.9.3"
-  spec.add_development_dependency "rbs", "~> 3.8.1"
+  spec.add_development_dependency "rbs", "~> 3.9.2"
   spec.add_development_dependency "typeprof", "~> 0.21.7"
   spec.add_development_dependency "bundler", "~> 2.4.18"
   spec.add_development_dependency "rake", "~> 13.2.1"
