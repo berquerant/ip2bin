@@ -4,16 +4,21 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions: {}
+
 jobs:
   test:
     timeout-minutes: 5
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: "false"
       - name: Set up Ruby
         uses: ruby/setup-ruby@354a1ad156761f5ee2b7b13fa8e09943a5e8d252
         with:
-          ruby-version: '3.2'
           bundler-cache: true
       - name: Install dependencies
         run: bundle install
